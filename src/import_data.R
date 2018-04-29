@@ -4,10 +4,10 @@ import_data <- function(path) {
   if (!file.exists(path)) {
     
     empty_data_table <- data.table(
-      log_hours_type = NA_character_,
+      log_hours_type = NA,
       log_date = NA,
-      log_location = NA_character_,
-      log_description = NA_character_
+      log_location = NA,
+      log_description = NA
     )
     
     if (!dir.exists("data/")) {
@@ -15,7 +15,7 @@ import_data <- function(path) {
     }
 
     fwrite(empty_data_table[-1,], path)
-    message("The input data file does not exists so we initialized one for you.")
+    showNotification("The input data file does not exists so we initialized one for you.")
   }
   
   read.csv(path)
