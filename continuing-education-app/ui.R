@@ -18,14 +18,14 @@ ui <- dashboardPage(
           dateInput("new_log_date", label = "Date of the log", min = "2018-01-01", max = "2021-12-31", value = Sys.Date()),
           textInput("new_log_location", label = "Location of the log"),
           textAreaInput("new_log_description", label = "Brief description of the log"),
-          actionButton("new_log_add_button", label = "Save the new log")
+          actionButton("new_log_add_button", label = "Add the new log")
         )
       ),
       tabItem(tabName = "stats"
         
       ),
-      tabItem(tabName = "historical_logs"
-        
+      tabItem(tabName = "historical_logs",
+        dataTableOutput("historical_logs_table")
       )
     )
   )
