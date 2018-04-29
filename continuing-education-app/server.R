@@ -18,10 +18,14 @@ server <- function(input, output, session) {
   observeEvent(input$new_log_add_button, {
     logs$data <- update_data(logs$data, input_new_log())
     export_data(logs$data, "data/data_logs.csv")
+    showModal(modalDialog(
+      title = "Lezgo!",
+      "Your log has been successfully added to your log file."
+    ))
   })
   
   output$historical_logs_table <- renderDataTable({
-    datatable(logs$data, colnames = c("Hours Type", "Number of hours", "Date", "Location", "Description"), options = list(order = list(list(2, 'desc'))))
+    datatable(logs$data, colnames = c("Hours Type", "Number of hours", "Date", "Location", "Description"), options = list(order = list(list(2, 'asc'))))
   })
   
   data_stats <- reactive({
@@ -38,14 +42,14 @@ server <- function(input, output, session) {
   
   output$value_box_total_objective <- renderValueBox({
     valueBox(
-      round(sum(data_stats()$log_number_hours)/min_number_of_combine_hours), "% total hours", icon = icon("bullseye"),
+      round(100 * sum(data_stats()$log_number_hours)/min_number_of_combine_hours, 1), "% total hours target", icon = icon("bullseye"),
       color = "orange"
     )
   })
   
   output$value_box_structured_objective <- renderValueBox({
     valueBox(
-      round(sum(data_stats()[log_hours_type == "Unstructured", ]$log_number_hours)/min_number_of_structured_hours), "% structured hours", icon = icon("bookmark"),
+      round(100 * sum(data_stats()[log_hours_type == "Unstructured", ]$log_number_hours)/min_number_of_structured_hours, 1), "% structured hours target", icon = icon("bookmark"),
       color = "orange"
     )
   })
