@@ -6,6 +6,7 @@ server <- function(input, output, session) {
   input_new_log <- reactive(
     data.table(
       log_hours_type = input$new_log_type_hours,
+      log_number_hours = input$new_log_number_hours,
       log_date = input$new_log_date,
       log_location = input$new_log_location,
       log_description = input$new_log_description
@@ -20,7 +21,44 @@ server <- function(input, output, session) {
   })
   
   output$historical_logs_table <- renderDataTable({
-    logs$data
+    datatable(logs$data, colnames = c("Hours Type", "Number of hours", "Date", "Location", "Description"), options = list(order = list(list(2, 'desc'))))
+  })
+  
+  data_stats <- reactive({
+    included_years <- c(year(input$stats_date) - number_of_calendar_years + 1: year(input$stats_date))
+    data.table(logs$data)[year(log_date) %in% included_years,]
+  })
+
+  output$value_box_total_hours <- renderValueBox({
+    valueBox(
+      sum(data_stats()$log_number_hours), "Total hours", icon = icon("calendar"),
+      color = "orange"
+    )
+  })
+  
+  output$value_box_total_objective <- renderValueBox({
+    valueBox(
+      round(sum(data_stats()$log_number_hours)/min_number_of_combine_hours), "% total hours", icon = icon("bullseye"),
+      color = "orange"
+    )
+  })
+  
+  output$value_box_structured_objective <- renderValueBox({
+    valueBox(
+      round(sum(data_stats()[log_hours_type == "Unstructured", ]$log_number_hours)/min_number_of_structured_hours), "% structured hours", icon = icon("bookmark"),
+      color = "orange"
+    )
+  })
+  
+  output$graph_detailed_summary <- renderPlot({
+    data_stats()[, .(number_hours = sum(log_number_hours)), by = .(year = year(log_date), hours_type = log_hours_type)] %>% 
+      ggplot(aes(x = as.factor(year), y = number_hours, fill = hours_type)) +
+        geom_bar(stat = "identity", position = "dodge") +
+        scale_x_discrete("Calendar year") +
+        scale_y_continuous("Number of hours completed (hours)") +
+        scale_fill_discrete("Type of hours") +
+        theme_classic() +
+        theme(legend.position = "bottom")
   })
 
 }

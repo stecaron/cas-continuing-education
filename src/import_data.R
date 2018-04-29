@@ -5,6 +5,7 @@ import_data <- function(path) {
     
     empty_data_table <- data.table(
       log_hours_type = NA,
+      log_number_hours = NA,
       log_date = NA,
       log_location = NA,
       log_description = NA
