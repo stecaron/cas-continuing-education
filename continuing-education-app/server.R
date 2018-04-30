@@ -42,14 +42,14 @@ server <- function(input, output, session) {
   
   output$value_box_total_objective <- renderValueBox({
     valueBox(
-      round(100 * sum(data_stats()$log_number_hours)/min_number_of_combine_hours, 1), "% total hours target", icon = icon("bullseye"),
+      round(100 * min(sum(data_stats()$log_number_hours)/min_number_of_combine_hours, 1), 1), "% total hours target", icon = icon("bullseye"),
       color = "orange"
     )
   })
   
   output$value_box_structured_objective <- renderValueBox({
     valueBox(
-      round(100 * sum(data_stats()[log_hours_type == "Unstructured", ]$log_number_hours)/min_number_of_structured_hours, 1), "% structured hours target", icon = icon("bookmark"),
+      round(100 * min(sum(data_stats()[log_hours_type == "Structured", ]$log_number_hours)/min_number_of_structured_hours, 1), 1), "% structured hours target", icon = icon("bookmark"),
       color = "orange"
     )
   })
