@@ -8,6 +8,7 @@ server <- function(input, output, session) {
       log_hours_type = input$new_log_type_hours,
       log_number_hours = input$new_log_number_hours,
       log_date = input$new_log_date,
+      log_prof_hours = input$new_log_prof_hours,
       log_location = input$new_log_location,
       log_description = input$new_log_description
     )
@@ -25,7 +26,7 @@ server <- function(input, output, session) {
   })
   
   output$historical_logs_table <- renderDataTable({
-    datatable(logs$data, colnames = c("Hours Type", "Number of hours", "Date", "Location", "Description"), options = list(order = list(list(2, 'asc'))))
+    datatable(logs$data, colnames = c("Hours Type", "Number of hours", "Date", "Professional hours", "Location", "Description"), options = list(order = list(list(2, 'asc'))))
   })
   
   data_stats <- reactive({

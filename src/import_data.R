@@ -7,6 +7,7 @@ import_data <- function(path) {
       log_hours_type = NA,
       log_number_hours = NA,
       log_date = NA,
+      log_prof_hours = NA,
       log_location = NA,
       log_description = NA
     )

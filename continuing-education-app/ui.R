@@ -17,6 +17,7 @@ ui <- dashboardPage(
           selectInput("new_log_type_hours", label = "Type of hours:", choices = c("Structured", "Unstructured"), selected = "Unstructured"),
           numericInput("new_log_number_hours", label = "Number of hours:", step = 0.5, min = 0, value = 0),
           dateInput("new_log_date", label = "Date of the log", value = Sys.Date()),
+          selectInput("new_log_prof_hours", label = "Professional hours", choices = c("Yes", "No"), selected = "No"),
           textInput("new_log_location", label = "Location of the log:"),
           textAreaInput("new_log_description", label = "Brief description of the log:"),
           actionButton("new_log_add_button", label = "Add the new log:")
