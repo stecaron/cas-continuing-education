@@ -20,6 +20,6 @@ import_data <- function(path) {
     showNotification("The input data file does not exists so we initialized one for you.")
   }
   
-  read.csv(path)
+  fread(path)
   
 }
