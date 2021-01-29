@@ -16,9 +16,7 @@ This repo is a template for anyone who wants to keep track of their CE logs (it 
 # Period of time the requirements are reviewed (years)
 number_of_calendar_years <- 2
 # Minimum number of total hours (unstructured + structured)
-min_number_of_combine_hours <- 100
-# Minimum number of structured hours
-min_number_of_structured_hours <- 24
+min_number_of_combine_hours <- 80
 ```
 
 3. Run the script `launch-app.R`
