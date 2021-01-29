@@ -1,0 +1,12 @@
+log_hours_type,log_number_hours,log_date,log_module,log_location,log_description
+Structured,30,2018-03-05,No,"Université de Montréal, Pavillon Jean-Briand",École d’hiver IVADO/MILA en apprentissage profond 2018 (5 au 9 mars)
+Structured,60,2018-01-14,No,"Université Laval, Québec","Stats master degree course, STT-7330 with Anne-Sophie-Charest"
+Structured,60,2018-12-26,No,"Université Laval, Québec","GIF-7005, Introduction to machine learning"
+Structured,28,2018-11-26,No,"Centre Mont-Royal, Montréal",IVADO/RALI NLP School (French)
+Structured,1,2018-07-09,Yes,"Intact Office, Québec",Modifications liées aux changements proposés aux exigences PPC
+Structured,1,2018-05-16,No,Québec,Modifications liées à l’examen de la gouvernance
+Structured,100,2019-01-29,No,Université Laval,GLO-7030 (Cours maitrise apprentissage par réseaux de neurones profonds)
+Structured,60,2019-01-29,No,Université Laval,GLO-7027 (Cours maitrise analyse et traitement des données massives)
+Unstructured,150,2019-12-05,No,Université Laval,Mémoire de maitrise (temps)
+Unstructured,455,2020-12-30,No,Université Laval,Mémoire de maitrise (détection d'anomalies avec des VAE)
+Structured,3,2020-12-22,Yes,Montréal,Module de professionnalisme de la ICA

@@ -17,7 +17,7 @@ ui <- dashboardPage(
           selectInput("new_log_type_hours", label = "Type of hours:", choices = c("Structured", "Unstructured"), selected = "Unstructured"),
           numericInput("new_log_number_hours", label = "Number of hours:", step = 0.5, min = 0, value = 0),
           dateInput("new_log_date", label = "Date of the log", value = Sys.Date()),
-          selectInput("new_log_prof_hours", label = "Professional hours", choices = c("Yes", "No"), selected = "No"),
+          selectInput("new_log_module", label = "Professionalism module", choices = c("Yes", "No"), selected = "No"),
           textInput("new_log_location", label = "Location of the log:"),
           textAreaInput("new_log_description", label = "Brief description of the log:"),
           actionButton("new_log_add_button", label = "Add the new log:")
@@ -28,12 +28,12 @@ ui <- dashboardPage(
           box(title = "Parameters", width = 4, height = 250,
               dateInput("stats_date", label = "Date of analysis", value = Sys.Date()),
               paste("The CAS/ICA requirements are usually reviewed over the last ", number_of_calendar_years, " calendar years."), br(),
-              paste("The requirements are ", min_number_of_combine_hours, " total hours, which includes at least ", min_number_of_structured_hours, "hours of structured activities.")
+              paste("The requirements are ", min_number_of_combine_hours, " total hours.")
           ),
           box(title = "Summary", width = 8, height = 250,
             valueBoxOutput("value_box_total_hours"),
             valueBoxOutput("value_box_total_objective"),
-            valueBoxOutput("value_box_structured_objective")
+            valueBoxOutput("value_box_last_module_date")
           )
         ),
         fluidRow(

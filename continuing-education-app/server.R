@@ -8,7 +8,7 @@ server <- function(input, output, session) {
       log_hours_type = input$new_log_type_hours,
       log_number_hours = input$new_log_number_hours,
       log_date = input$new_log_date,
-      log_prof_hours = input$new_log_prof_hours,
+      log_module = input$new_log_module,
       log_location = input$new_log_location,
       log_description = input$new_log_description
     )
@@ -26,17 +26,17 @@ server <- function(input, output, session) {
   })
   
   output$historical_logs_table <- renderDataTable({
-    datatable(logs$data, colnames = c("Hours Type", "Number of hours", "Date", "Professional hours", "Location", "Description"), options = list(order = list(list(2, 'asc'))))
+    datatable(data = logs$data, colnames = c("Hours Type", "Number of hours", "Date", "Professional hours", "Location", "Description"), options = list(order = list(list(2, 'asc'))))
   })
   
   data_stats <- reactive({
-    included_years <- c(year(input$stats_date) - number_of_calendar_years + 1: year(input$stats_date))
+    included_years <- c((year(input$stats_date) - number_of_calendar_years): year(input$stats_date))
     data.table(logs$data)[year(log_date) %in% included_years,]
   })
 
   output$value_box_total_hours <- renderValueBox({
     valueBox(
-      sum(data_stats()$log_number_hours), "Total hours", icon = icon("calendar"),
+      sum(data_stats()$log_number_hours), "Total hours", icon = icon("clock"),
       color = "orange"
     )
   })
@@ -48,9 +48,9 @@ server <- function(input, output, session) {
     )
   })
   
-  output$value_box_structured_objective <- renderValueBox({
+  output$value_box_last_module_date <- renderValueBox({
     valueBox(
-      round(100 * min(sum(data_stats()[log_hours_type == "Structured", ]$log_number_hours)/min_number_of_structured_hours, 1), 1), "% structured hours target", icon = icon("bookmark"),
+      max(data_stats()[log_module == "Yes",]$log_date), "Last module completed", icon = icon("calendar"),
       color = "orange"
     )
   })
