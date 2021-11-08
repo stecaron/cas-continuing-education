@@ -29,7 +29,8 @@ source("src/update_data.R")
 number_of_calendar_years <- 2
 # Minimum number of total hours (unstructured + structured)
 min_number_of_combine_hours <- 80
-
+# Minimum number of structured hours (structured)
+min_number_of_structured_hours <- 30
 
 
 # Run app -----------------------------------------------------------------

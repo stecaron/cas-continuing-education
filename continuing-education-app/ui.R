@@ -28,22 +28,23 @@ ui <- dashboardPage(
           box(title = "Parameters", width = 4, height = 250,
               dateInput("stats_date", label = "Date of analysis", value = Sys.Date()),
               paste("The CAS/ICA requirements are usually reviewed over the last ", number_of_calendar_years, " calendar years."), br(),
-              paste("The requirements are ", min_number_of_combine_hours, " total hours.")
+              paste("The requirements are ", min_number_of_combine_hours, " total hours, including", min_number_of_structured_hours, "structured.")
           ),
           box(title = "Summary", width = 8, height = 250,
-            valueBoxOutput("value_box_total_hours"),
+            # valueBoxOutput("value_box_total_hours"),
             valueBoxOutput("value_box_total_objective"),
+            valueBoxOutput("value_box_structured_objective"),
             valueBoxOutput("value_box_last_module_date")
           )
         ),
         fluidRow(
-          box(title = "Detailed summary", width = 4, height = 500,
+          box(title = "Detailed summary", width = 12, height = 500,
               plotOutput("graph_detailed_summary")
-          ),
-          box(title = "Projections", width = 8, height = 500,
-              "Average number of hours to do in order to meet requirements at the end of the calendar year.",
-              plotOutput("graph_projections")
-          )
+          )#,
+          # box(title = "Projections", width = 8, height = 500,
+          #     "Average number of hours to do in order to meet requirements at the end of the calendar year.",
+          #     plotOutput("graph_projections")
+          # )
         )
       ),
       tabItem(tabName = "historical_logs",

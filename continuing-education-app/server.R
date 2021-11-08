@@ -30,7 +30,7 @@ server <- function(input, output, session) {
   })
   
   data_stats <- reactive({
-    included_years <- c((year(input$stats_date) - number_of_calendar_years): year(input$stats_date))
+    included_years <- c((year(input$stats_date) - number_of_calendar_years + 1): year(input$stats_date))
     data.table(logs$data)[year(log_date) %in% included_years,]
   })
 
@@ -48,6 +48,13 @@ server <- function(input, output, session) {
     )
   })
   
+  output$value_box_structured_objective <- renderValueBox({
+    valueBox(
+      round(100 * min(sum(data_stats()[log_hours_type == "Structured",]$log_number_hours)/min_number_of_structured_hours, 1), 1), "% structured hours target", icon = icon("bullseye"),
+      color = "orange"
+    )
+  })
+  
   output$value_box_last_module_date <- renderValueBox({
     valueBox(
       max(data_stats()[log_module == "Yes",]$log_date), "Last module completed", icon = icon("calendar"),
@@ -59,6 +66,7 @@ server <- function(input, output, session) {
     data_stats()[, .(number_hours = sum(log_number_hours)), by = .(year = year(log_date), hours_type = log_hours_type)] %>% 
       ggplot(aes(x = as.factor(year), y = number_hours, fill = hours_type)) +
         geom_bar(stat = "identity", position = "dodge") +
+        geom_text(aes(label = number_hours), vjust = -0.2, position = position_dodge(.9)) +
         scale_x_discrete("Calendar year") +
         scale_y_continuous("Number of hours completed (hours)") +
         scale_fill_discrete("Type of hours") +
